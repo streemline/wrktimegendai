@@ -182,23 +182,7 @@ export default function ExportModal({
               />
             </div>
             
-            <div className="flex items-center justify-between">
-              <Label htmlFor="includeProjects">Включити проекти</Label>
-              <Switch 
-                id="includeProjects" 
-                checked={options.includeProjects}
-                onCheckedChange={() => handleOptionChange('includeProjects')}
-              />
-            </div>
-            
-            <div className="flex items-center justify-between">
-              <Label htmlFor="includeActions">Включити дії</Label>
-              <Switch 
-                id="includeActions" 
-                checked={options.includeActions}
-                onCheckedChange={() => handleOptionChange('includeActions')}
-              />
-            </div>
+
           </motion.div>
           
           <motion.div

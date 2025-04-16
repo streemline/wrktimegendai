@@ -1,4 +1,4 @@
-modules = ["nodejs-20", "web", "nix"]
+modules = ["nodejs-20", "web", "postgresql-16"]
 run = "npm run dev"
 hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
 
@@ -7,10 +7,23 @@ channel = "stable-24_05"
 
 [deployment]
 deploymentTarget = "autoscale"
-run = ["sh", "-c", "npm run dev"]
+build = ["npm", "run", "build"]
+run = ["npm", "run", "start"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[[ports]]
+localPort = 5001
+externalPort = 3000
+
+[[ports]]
+localPort = 8081
+externalPort = 8000
 
 [workflows]
-runButton = "Project"
+runButton = "Start Expo"
 
 [[workflows.workflow]]
 name = "Project"
@@ -34,12 +47,13 @@ task = "packager.installForAll"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "npm run dev"
-waitForPort = 5005
+waitForPort = 5000
 
-[auth]
-pageEnabled = false
-buttonEnabled = false
+[[workflows.workflow]]
+name = "Start Expo"
+author = 41247286
+mode = "sequential"
 
-[[ports]]
-localPort = 5000
-externalPort = 80
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx expo start --web --port 5000 --hostname 0.0.0.0"
