@@ -12,9 +12,6 @@ import { format, parseISO } from 'date-fns';
 import { getQueryFn } from '@/lib/queryClient';
 import { motion } from 'framer-motion';
 import { type TimeEntry } from '@shared/schema';
-import { MoodEnergySelector } from '@/components/ui/mood-energy-selector';
-
-import { AnimationType } from '@/components/ui/animated-action-button';
 
 interface EditEntryModalProps {
   open: boolean;
@@ -34,8 +31,6 @@ export default function EditEntryModal({ open, onClose, entryId }: EditEntryModa
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [currentEntryDate, setCurrentEntryDate] = useState<string>('');
-  const [moodRating, setMoodRating] = useState<number | null>(null);
-  const [energyLevel, setEnergyLevel] = useState<number | null>(null);
   
   // Получаем данные записи, которую нужно отредактировать
   const { data: timeEntry, isLoading } = useQuery<TimeEntry>({
@@ -67,10 +62,6 @@ export default function EditEntryModal({ open, onClose, entryId }: EditEntryModa
       setValue('endTime', timeEntry.endTime);
       setValue('hourlyRate', timeEntry.hourlyRate || 190);
       setValue('notes', timeEntry.notes || '');
-      
-      // Устанавливаем настроение и уровень энергии, если они есть
-      setMoodRating(timeEntry.moodRating || null);
-      setEnergyLevel(timeEntry.energyLevel || null);
     }
   }, [timeEntry, setValue]);
   
@@ -119,9 +110,6 @@ export default function EditEntryModal({ open, onClose, entryId }: EditEntryModa
       endTime: data.endTime,
       hourlyRate: data.hourlyRate,
       notes: data.notes,
-      moodRating,
-      energyLevel,
-      animationType: 'spring',
     };
     
     updateEntryMutation.mutate(updateData);
@@ -256,25 +244,6 @@ export default function EditEntryModal({ open, onClose, entryId }: EditEntryModa
               })} 
             />
           </motion.div>
-          
-          <motion.div
-            custom={4}
-            initial="hidden"
-            animate="visible"
-            variants={formAnimation}
-            key="mood-energy-field"
-          >
-            <Label className="text-muted-foreground block mb-2">Настроение и энергия</Label>
-            <MoodEnergySelector
-              moodRating={moodRating}
-              energyLevel={energyLevel}
-              onMoodChange={setMoodRating}
-              onEnergyChange={setEnergyLevel}
-              className="bg-background/50 p-4 rounded-md border border-input"
-            />
-          </motion.div>
-          
-
         
           <motion.div
             initial={{ opacity: 0 }}

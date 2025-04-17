@@ -1,5 +1,14 @@
-import React from "react";
-import { BarChart3Icon, PlusIcon, UserIcon } from "lucide-react";
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { 
+  BarChart3Icon, 
+  PlusIcon, 
+  UserIcon, 
+  BellIcon, 
+  Menu, 
+  FileOutput
+} from 'lucide-react';
 
 interface NavbarProps {
   activePage: string;
@@ -8,15 +17,16 @@ interface NavbarProps {
   onExport?: () => void;
 }
 
-export default function Navbar({
-  activePage,
-  onNavigation,
+export default function Navbar({ 
+  activePage, 
+  onNavigation, 
   onAddEntry,
+  onExport 
 }: NavbarProps) {
   return (
     <>
       {/* Top Header */}
-      {/* <header className="bg-primary text-white py-3 px-4 flex justify-between items-center shadow-md">
+      <header className="bg-primary text-white py-3 px-4 flex justify-between items-center shadow-md">
         <button className="text-xl" onClick={() => {}}>
           <Menu className="h-6 w-6" />
         </button>
@@ -34,19 +44,19 @@ export default function Navbar({
             <UserIcon className="h-6 w-6" />
           </button>
         </div>
-      </header> */}
-
+      </header>
+      
       {/* Bottom Navigation */}
       <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-gray-700 px-2 py-3 flex justify-around z-10">
-        <button
-          className={`flex flex-col items-center ${activePage === "statistics" ? "text-primary" : "text-muted-foreground hover:text-primary transition-colors"}`}
-          onClick={() => onNavigation("statistics")}
+        <button 
+          className={`flex flex-col items-center ${activePage === 'statistics' ? 'text-primary' : 'text-muted-foreground hover:text-primary transition-colors'}`}
+          onClick={() => onNavigation('statistics')}
         >
           <BarChart3Icon className="h-6 w-6" />
           <span className="text-xs mt-1">Статистика</span>
         </button>
-
-        <button
+        
+        <button 
           className="flex flex-col items-center text-muted-foreground hover:text-primary transition-colors"
           onClick={onAddEntry}
         >
@@ -55,10 +65,10 @@ export default function Navbar({
           </div>
           <span className="text-xs mt-1">Додати</span>
         </button>
-
-        <button
-          className={`flex flex-col items-center ${activePage === "profile" ? "text-primary" : "text-muted-foreground hover:text-primary transition-colors"}`}
-          onClick={() => onNavigation("profile")}
+        
+        <button 
+          className={`flex flex-col items-center ${activePage === 'profile' ? 'text-primary' : 'text-muted-foreground hover:text-primary transition-colors'}`}
+          onClick={() => onNavigation('profile')}
         >
           <UserIcon className="h-6 w-6" />
           <span className="text-xs mt-1">Профіль</span>

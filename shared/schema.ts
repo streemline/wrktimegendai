@@ -11,7 +11,6 @@ export const users = pgTable("users", {
   email: text("email"),
   phone: text("phone"),
   position: text("position"),
-  profileImage: text("profile_image"),
   workHoursPerDay: integer("work_hours_per_day").notNull().default(8),
   breakMinutes: integer("break_minutes").notNull().default(60),
   autoBreak: boolean("auto_break").notNull().default(true),
@@ -35,9 +34,6 @@ export const timeEntries = pgTable("time_entries", {
   // hasBreak: boolean("has_break").notNull().default(false),
   hourlyRate: integer("hourly_rate").notNull().default(0), // Добавляем ставку в чешских кронах (CZK)
   notes: text("notes"),
-  moodRating: integer("mood_rating"), // Настроение (от 1 до 5)
-  energyLevel: integer("energy_level"), // Уровень энергии (от 1 до 5)
-  animationType: text("animation_type").default("spring"), // Тип анимации для кнопок действий
 });
 
 export const timeEntriesRelations = relations(timeEntries, ({ one }) => ({

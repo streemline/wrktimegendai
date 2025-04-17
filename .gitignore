@@ -52,4 +52,12 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Other
+node_modules
+dist
+.DS_Store
+server/public
+vite.config.ts.*
+.env
+
 # End of https://www.toptal.com/developers/gitignore/api/windows
